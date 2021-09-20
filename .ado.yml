@@ -1,0 +1,23 @@
+# https://aka.ms/yaml
+
+name: "$(date:yyyyMMdd)$(rev:.r)"
+
+trigger:
+  - main
+
+pr:
+  - main
+
+jobs:
+  - job: PerfViewJS
+    pool:
+      vmImage: 'windows-2019'
+      name: Azure Pipelines
+      demands: msbuild
+
+    steps:
+    - task: MSBuild@1
+      displayName: 'Build src/PerfViewJS/PerfViewJS.csproj'
+      inputs:
+        solution: src/PerfViewJS/PerfViewJS.csproj
+        msbuildArguments: /restore
