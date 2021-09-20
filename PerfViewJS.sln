@@ -3,9 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29613.14
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PerfViewJS", "PerfViewJS.csproj", "{A2AECB8A-B4F5-4006-A5D2-D10B25B10FF8}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TraceEvent", "..\TraceEvent\TraceEvent.csproj", "{69F81695-89EF-4B75-A687-232DE132A3B2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PerfViewJS", "src\PerfViewJS.csproj", "{A2AECB8A-B4F5-4006-A5D2-D10B25B10FF8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
