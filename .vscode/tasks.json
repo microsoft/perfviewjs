@@ -1,0 +1,21 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "build",
+            "command": "dotnet",
+            "args": [
+                "build",
+                "-c", "Debug",
+                "-v", "m",
+                "-m",
+                "${workspaceRoot}/src/PerfViewJS.csproj"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "problemMatcher": "$msCompile"
+		}
+	]
+}
