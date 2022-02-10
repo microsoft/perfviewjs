@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { StackViewerFilter } from "../StackViewerFilter/StackViewerFilter";
 import base64url from "base64url";
 import { CheckboxVisibility, DetailsList, PrimaryButton } from "@fluentui/react";
@@ -31,16 +31,7 @@ const Hotspots: React.FC = () => {
     setColDef(newColumns);
   };
 
-  useEffect(() => {
-    fetch("/api/hotspots?" + constructAPICacheKeyFromRouteKey(routeKey))
-      .then((res) => res.json())
-      .then((data) => {
-        updateNodes(data);
-        updateColumns(HotspotsColDef);
-      });
-  }, [routeKey]);
-
-  const onColumnClick = (ev: React.MouseEvent<HTMLElement>, column: IColumn): void => {
+  const onColumnClick = useCallback((ev: React.MouseEvent<HTMLElement>, column: IColumn): void => {
     const newColumns: IColumn[] = refColDef.current.slice();
     const currColumn: IColumn = newColumns.filter((currCol) => column.key === currCol.key)[0];
     newColumns.forEach((newCol: IColumn) => {
@@ -56,75 +47,87 @@ const Hotspots: React.FC = () => {
     const sortedNodes = copyAndSort(refNodes.current, currColumn.fieldName!, currColumn.isSortedDescending);
     updateNodes(sortedNodes);
     updateColumns(newColumns);
-  };
+  }, []);
 
-  const HotspotsColDef: IColumn[] = [
-    {
-      key: "Name",
-      name: "Name",
-      isResizable: true,
-      fieldName: "name",
-      minWidth: 1000,
-      onColumnClick: onColumnClick,
-    },
-    {
-      key: "exclusiveMetricPercent",
-      name: "Exclusive Metric %",
-      fieldName: "exclusiveMetricPercent",
-      minWidth: 120,
-      onColumnClick: onColumnClick,
-    },
-    {
-      key: "exclusiveCount",
-      name: "Exclusive Count",
-      fieldName: "exclusiveCount",
-      minWidth: 120,
-      onColumnClick: onColumnClick,
-    },
-    {
-      key: "inclusiveMetricPercent",
-      name: "Inclusive Metric %",
-      fieldName: "inclusiveMetricPercent",
-      minWidth: 120,
-      onColumnClick: onColumnClick,
-    },
-    {
-      key: "inclusiveCount",
-      name: "Inclusive Count",
-      fieldName: "inclusiveCount",
-      minWidth: 120,
-      onColumnClick: onColumnClick,
-    },
-    {
-      key: "exclusiveFoldedMetric",
-      name: "Fold Count",
-      fieldName: "exclusiveFoldedMetric",
-      minWidth: 80,
-      onColumnClick: onColumnClick,
-    },
-    {
-      key: "inclusiveMetricByTimeString",
-      name: "When",
-      isResizable: true,
-      fieldName: "inclusiveMetricByTimeString",
-      minWidth: 250,
-      onColumnClick: onColumnClick,
-    },
-    {
-      key: "firstTimeRelativeMSec",
-      name: "First",
-      fieldName: "firstTimeRelativeMSec",
-      minWidth: 100,
-      onColumnClick: onColumnClick,
-    },
-    {
-      key: "lastTimeRelativeMSec",
-      name: "Last",
-      fieldName: "lastTimeRelativeMSec",
-      minWidth: 100,
-      onColumnClick: onColumnClick,
-    },
-  ];
+  const HotspotsColDef = useMemo(
+    () => [
+      {
+        key: "Name",
+        name: "Name",
+        isResizable: true,
+        fieldName: "name",
+        minWidth: 1000,
+        onColumnClick: onColumnClick,
+      },
+      {
+        key: "exclusiveMetricPercent",
+        name: "Exclusive Metric %",
+        fieldName: "exclusiveMetricPercent",
+        minWidth: 120,
+        onColumnClick: onColumnClick,
+      },
+      {
+        key: "exclusiveCount",
+        name: "Exclusive Count",
+        fieldName: "exclusiveCount",
+        minWidth: 120,
+        onColumnClick: onColumnClick,
+      },
+      {
+        key: "inclusiveMetricPercent",
+        name: "Inclusive Metric %",
+        fieldName: "inclusiveMetricPercent",
+        minWidth: 120,
+        onColumnClick: onColumnClick,
+      },
+      {
+        key: "inclusiveCount",
+        name: "Inclusive Count",
+        fieldName: "inclusiveCount",
+        minWidth: 120,
+        onColumnClick: onColumnClick,
+      },
+      {
+        key: "exclusiveFoldedMetric",
+        name: "Fold Count",
+        fieldName: "exclusiveFoldedMetric",
+        minWidth: 80,
+        onColumnClick: onColumnClick,
+      },
+      {
+        key: "inclusiveMetricByTimeString",
+        name: "When",
+        isResizable: true,
+        fieldName: "inclusiveMetricByTimeString",
+        minWidth: 250,
+        onColumnClick: onColumnClick,
+      },
+      {
+        key: "firstTimeRelativeMSec",
+        name: "First",
+        fieldName: "firstTimeRelativeMSec",
+        minWidth: 100,
+        onColumnClick: onColumnClick,
+      },
+      {
+        key: "lastTimeRelativeMSec",
+        name: "Last",
+        fieldName: "lastTimeRelativeMSec",
+        minWidth: 100,
+        onColumnClick: onColumnClick,
+      },
+    ],
+    [onColumnClick]
+  );
+
+  useEffect(() => {
+    fetch("/api/hotspots?" + constructAPICacheKeyFromRouteKey(routeKey))
+      .then((res) => res.json())
+      .then((data) => {
+        updateNodes(data);
+        updateColumns(HotspotsColDef);
+      });
+  }, [HotspotsColDef, routeKey]);
 
   const renderItemColumn = (item?: TNode, index?: number, column?: IColumn) => {
     if (column?.fieldName === "exclusiveCount") {

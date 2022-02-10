@@ -30,18 +30,13 @@ export const ProcessList: React.FC<IProcessListProps> = (props) => {
 
   const renderItemColumn = (item?: Process, index?: number, column?: IColumn) => {
     if (column?.fieldName === "name") {
-      {
-        return item?.processId === 0 ? (
-          "Idle"
-        ) : item?.processId === 4 ? (
-          "System"
-        ) : (
-          <TextLink
-            onClick={() => history.push(`/ui/processInfo/${dataFile}/${item?.id}`)}
-            content={item?.name || ""}
-          />
-        );
-      }
+      return item?.processId === 0 ? (
+        "Idle"
+      ) : item?.processId === 4 ? (
+        "System"
+      ) : (
+        <TextLink onClick={() => history.push(`/ui/processInfo/${dataFile}/${item?.id}`)} content={item?.name || ""} />
+      );
     } else {
       //? everything is optional..
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment

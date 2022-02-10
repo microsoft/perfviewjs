@@ -59,7 +59,7 @@ const TraceInfo: React.FC = () => {
       .then((data) => {
         setTraceInfo({ traceInfo: data, loading: false });
       });
-  }, []);
+  }, [dataFile]);
 
   const renderTraceInfo = () => {
     const { traceInfo } = trace;

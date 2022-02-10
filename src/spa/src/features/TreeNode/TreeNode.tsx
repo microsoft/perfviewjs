@@ -55,7 +55,7 @@ const TreeNode: React.FC<ITreeNodeProps> = (props) => {
     if (autoExpand === true) {
       expandTreeNode(routeKey, callTreeNodeId, node.path);
     }
-  }, [callTreeNodeId, node.path]);
+  }, [autoExpand, callTreeNodeId, node.path, routeKey]);
 
   const collapseTreeNode = () => {
     setTreeNode({

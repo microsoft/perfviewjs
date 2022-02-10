@@ -3,7 +3,7 @@ import { Module } from "common/Interfaces";
 import { copyAndSort } from "common/Utility";
 import { TextLink } from "components/TextLink/TextLink";
 import { useDataFileContext } from "context/DataFileContext";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Col, Container, Row } from "react-grid-system";
 
 const ModuleList: React.FC = () => {
@@ -24,7 +24,7 @@ const ModuleList: React.FC = () => {
     setColDef(newColumns);
   };
 
-  const onColumnClick = (ev: React.MouseEvent<HTMLElement>, column: IColumn): void => {
+  const onColumnClick = useCallback((ev: React.MouseEvent<HTMLElement>, column: IColumn): void => {
     const newColumns: IColumn[] = refColDef.current.slice();
     const currColumn: IColumn = newColumns.filter((currCol) => column.key === currCol.key)[0];
     newColumns.forEach((newCol: IColumn) => {
@@ -40,24 +40,27 @@ const ModuleList: React.FC = () => {
     const sortedModules = copyAndSort(refModules.current, currColumn.fieldName!, currColumn.isSortedDescending);
     updateModules(sortedModules);
     updateColumns(newColumns);
-  };
+  }, []);
 
-  const ModuleListColDef: IColumn[] = [
-    {
-      key: "Module Path",
-      name: "Module Path",
-      fieldName: "modulePath",
-      minWidth: 300,
-      onColumnClick: onColumnClick,
-    },
-    {
-      key: "Number of address occurrences in all stacks",
-      name: "Number of address occurrences in all stacks",
-      fieldName: "addrCount",
-      minWidth: 300,
-      onColumnClick: onColumnClick,
-    },
-  ];
+  const ModuleListColDef = useMemo(
+    () => [
+      {
+        key: "Module Path",
+        name: "Module Path",
+        fieldName: "modulePath",
+        minWidth: 300,
+        onColumnClick: onColumnClick,
+      },
+      {
+        key: "Number of address occurrences in all stacks",
+        name: "Number of address occurrences in all stacks",
+        fieldName: "addrCount",
+        minWidth: 300,
+        onColumnClick: onColumnClick,
+      },
+    ],
+    [onColumnClick]
+  );
 
   useEffect(() => {
     fetch(`/api/modulelist?filename=${dataFile}`)
@@ -66,7 +69,7 @@ const ModuleList: React.FC = () => {
         updateModules(data);
         updateColumns(ModuleListColDef);
       });
-  }, [dataFile]);
+  }, [ModuleListColDef, dataFile]);
 
   const renderItemColumn = (item?: Module, index?: number, column?: IColumn) => {
     if (column?.fieldName === "addrCount") {

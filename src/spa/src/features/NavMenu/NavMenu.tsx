@@ -97,6 +97,7 @@ const NavMenu: React.FC = () => {
     }
     menuState[0].links = navLinks;
     setMenuState([...menuState]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dataFile]);
   return (
     <ScrollablePane scrollbarVisibility="auto">
