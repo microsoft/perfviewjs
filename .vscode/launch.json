@@ -20,7 +20,7 @@
       "type": "node",
       "cwd": "${workspaceFolder}/src/spa",
       "runtimeExecutable": "npm",
-      "runtimeArgs": ["run", "start"],
+      "runtimeArgs": ["run", "dev"],
       "request": "launch"
     }
   ],
