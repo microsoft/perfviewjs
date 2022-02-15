@@ -22,6 +22,7 @@
     "@fortawesome/free-solid-svg-icons": "^5.15.3",
     "@fortawesome/react-fontawesome": "^0.1.14",
     "@monaco-editor/react": "^4.1.3",
+    "@react-hookz/web": "^12.3.0",
     "@trodi/electron-splashscreen": "^1.0.0",
     "@wojtekmaj/enzyme-adapter-react-17": "^0.6.1",
     "base64url": "^3.0.1",
