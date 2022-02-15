@@ -1,6 +1,6 @@
 import { CommandBar, getTheme, ICommandBarItemProps, ITheme, Text } from "@fluentui/react";
 import { useDataFileContext } from "context/DataFileContext";
-import { useLocalStorage } from "hooks/useLocalStorage";
+import { useLocalStorageValue } from "@react-hookz/web";
 import React from "react";
 import { Container, Row, Col } from "react-grid-system";
 import {
@@ -28,7 +28,7 @@ const theme = getTheme();
 const dataFileRowStyle = { borderBottom: `1px solid ${theme.semanticColors.bodyDivider}` };
 const Header: React.FC = () => {
   const { dataFileName } = useDataFileContext();
-  const [, setTheme] = useLocalStorage<keyof IThemeMap>("theme", "Light");
+  const [, setTheme] = useLocalStorageValue<keyof IThemeMap>("theme", "Light");
 
   const themes: ICommandBarItemProps[] = [
     {

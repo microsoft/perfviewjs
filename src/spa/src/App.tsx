@@ -19,10 +19,10 @@ import { Home } from "features/Home/Home";
 import { TraceInfo } from "features/StackViewerFilter/TraceInfo/TraceInfo";
 import { ProcessInfo } from "features/ProcessChooser";
 import { AvailableThemes, Header, IThemeMap } from "features/Header/Header";
-import { useLocalStorage } from "hooks/useLocalStorage";
+import { useLocalStorageValue } from "@react-hookz/web";
 
 const App: React.FC = () => {
-  const [themeKey] = useLocalStorage<keyof IThemeMap>("theme", "Light");
+  const [themeKey] = useLocalStorageValue<keyof IThemeMap>("theme", "Light");
   return (
     <ThemeProvider applyTo="body" theme={AvailableThemes[themeKey]}>
       <DataFileContextProvider>
