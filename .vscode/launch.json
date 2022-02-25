@@ -1,47 +1,50 @@
 {
-    // Use IntelliSense to learn about possible attributes.
-    // Hover to view descriptions of existing attributes.
-    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
-    "version": "0.2.0",
-    "configurations": [
-        {
-            "name": ".NET Core Launch (console)",
-            "type": "coreclr",
-            "request": "launch",
-            "preLaunchTask": "build",
-            "program": "${workspaceFolder}/src/bin/Debug/netcoreapp3.1/PerfViewJS.dll",
-            "args": ["${input:port}", "${input:dataDirectory}"],
-            "cwd": "${workspaceFolder}",
-            "stopAtEntry": false,
-            "console": "internalConsole"
-        },
-        {
-            "name": "Single page application",
-            "type": "node",
-            "cwd": "${workspaceFolder}/src/spa",
-            "runtimeExecutable": "npm",
-            "runtimeArgs": ["run", "start"],
-            "request": "launch"
-        }
-    ],
-    "compounds": [
-        {
-            "name": "Run & debug everything",
-            "configurations": [".NET Core Launch (console)", "Single page application"]
-        }
-    ],
-    "inputs": [
-        {
-            "id": "port",
-            "type": "promptString",
-            "description": "Enter the port for the .NET server.",
-            "default": "5000"
-        },
-        {
-            "id": "dataDirectory",
-            "type": "promptString",
-            "description": "Enter the data directory to search for trace files.",
-            "default": "."
-        }
-    ]
+  // Use IntelliSense to learn about possible attributes.
+  // Hover to view descriptions of existing attributes.
+  // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": ".NET Core Launch (console)",
+      "type": "coreclr",
+      "request": "launch",
+      "preLaunchTask": "build",
+      "program": "${workspaceFolder}/src/bin/Debug/net6.0/PerfViewJS.dll",
+      "args": ["${input:port}", "${input:dataDirectory}"],
+      "cwd": "${workspaceFolder}",
+      "stopAtEntry": false,
+      "console": "internalConsole"
+    },
+    {
+      "name": "Single page application",
+      "type": "node",
+      "cwd": "${workspaceFolder}/src/spa",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["run", "dev"],
+      "request": "launch"
+    }
+  ],
+  "compounds": [
+    {
+      "name": "Run & debug everything",
+      "configurations": [
+        ".NET Core Launch (console)",
+        "Single page application"
+      ]
+    }
+  ],
+  "inputs": [
+    {
+      "id": "port",
+      "type": "promptString",
+      "description": "Enter the port for the .NET server.",
+      "default": "6000"
+    },
+    {
+      "id": "dataDirectory",
+      "type": "promptString",
+      "description": "Enter the data directory to search for trace files.",
+      "default": "."
+    }
+  ]
 }
