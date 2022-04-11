@@ -19,7 +19,7 @@ jobs:
         solution: src/PerfViewJS.csproj
         msbuildArguments: /restore
     - task: ComponentGovernanceComponentDetection@0
-        inputs:
-          scanType: 'Register'
-          verbosity: 'Verbose'
-          alertWarningLevel: 'High'
+      inputs:
+        scanType: 'Register'
+        verbosity: 'Verbose'
+        alertWarningLevel: 'High'
