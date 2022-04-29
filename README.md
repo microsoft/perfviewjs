@@ -1,3 +1,5 @@
+This repo has been archived.  See [this issue](https://github.com/microsoft/perfviewjs/issues/15) for more details.
+
 # PerfViewJS
 
 PerfViewJS is a webviewer for ETL, NetPerf and NetTrace data.
